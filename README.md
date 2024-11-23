@@ -15,7 +15,7 @@ python -m venv venv
 pip install -r .\requirements.txt
 ```
 ###### Setup Database Locally
-> import <span style="color:blue">some *blue* text</span>../sbs_Db/sbs.sqp </span>file in sql application
+> import <span style="color:red">./sbs_Db/sbs.sqp </span>file in sql application.
 
 ###### Run Project
 ```
