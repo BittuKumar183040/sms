@@ -8,14 +8,14 @@ def shopBilling(id,password):
     cursor=Db.db.cursor()
     cursor.execute("SELECT * FROM shops WHERE id = '%s' and password='%s';" %(id,password))
     data=cursor.fetchall()[0]
-    shopName=data[0]
+    shop_name=data[0]
     # owner=data[3]
     # phone_no=data[4]
     # type=data[5]
     
     window=tk.Tk()
     window.geometry("880x600+100+20")
-    window.title(shopName)
+    window.title(shop_name)
     options_list = ["All Customer", "Employee", "Subscribed"]
     entryWidth=25
 
@@ -94,8 +94,8 @@ def shopBilling(id,password):
         else:
             enterItem[0]=enterItem[0]+e.char
 
-        if Db.itemSearch(enterItem[0],"shop_123"):
-            a=Db.itemSearch(enterItem[0],"shop_123")
+        if Db.item_search(enterItem[0],"shop_123"):
+            a=Db.item_search(enterItem[0],"shop_123")
             searchedData[0]=a[0]
             searchedData[1]=a[1]
             searchedData[2]=a[2]
@@ -200,9 +200,9 @@ def shopBilling(id,password):
             p_contact.delete(0,"end")
             p_email.delete(0,"end")
             p_pinCode.delete(0,"end")
-            if Db.customerCheck(id):
-                customerData=Db.customerCheck(id)
-                # print(Db.customerCheck("2132104465"))
+            if Db.customer_check(id):
+                customerData=Db.customer_check(id)
+                # print(Db.customer_check("2132104465"))
                 p_name.insert(0,customerData[1])
                 p_address.insert(0,customerData[2])
                 p_contact.insert(0,customerData[3])
@@ -233,7 +233,7 @@ def shopBilling(id,password):
             window.after(500,lambda: NotFilledwarning())
         else:
             printData(data,listItems,totalSection,c_info,discount)
-            Db.addCust(c_info)
+            Db.add_cust(c_info)
             # reset()
             window.destroy()
             shopBilling(id,password)
@@ -282,11 +282,9 @@ def shopBilling(id,password):
     statusFrame=tk.LabelFrame(window, text="")
     statusFrame.pack(fill="both", side=tk.BOTTOM)
 
-    tk.Label(statusFrame, text="Total Customers - %d  ||" %Db.countCust("customer")).grid(row=0,column=0)
+    tk.Label(statusFrame, text="Total Customers - %d  ||" %Db.count_cust("customer")).grid(row=0,column=0)
     tk.Label(statusFrame, text=" Sale Rs. %d" %sales).grid(row=0,column=1)
 
     window.state('zoomed')
     # window.attributes('-fullscreen', True)
     window.mainloop()
-
-# shopBilling("123",'123')

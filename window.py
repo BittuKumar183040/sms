@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import *
 import variables as v
-from dbConnect import adminLogout
+from dbConnect import admin_logout
 # menus
 from dashboard import dashBoard
 from customermanage import customerManage
@@ -15,10 +15,7 @@ def admin_loginLayout(user):
     window.title("SBS Dashboard, Welcome %s" %(user))
     window.geometry("1300x768+0+0")
     window.config(bg=v.c2)
-    # photo Section 
     userIcon=tk.PhotoImage(file="./asset/loggedIcon.png")
-    # exit=tk.PhotoImage(file="./asset/exit.png")
-
     logo=tk.PhotoImage(file="./asset/logo.png")
     dashboard=tk.PhotoImage(file="./asset/dashboard.png")
     customer=tk.PhotoImage(file="./asset/customer.png")
@@ -69,7 +66,7 @@ def admin_loginLayout(user):
     back.pack(side=tk.TOP, fill="x")
 
     def log_Out(e):
-        adminLogout(user)
+        admin_logout(user)
         window.destroy()
 
     loginContainer=tk.Frame(navBar, bg=v.c1, cursor="hand2")
@@ -97,5 +94,3 @@ def admin_loginLayout(user):
     window.state('zoomed')
     window.mainloop()
     
-    
-admin_loginLayout("Bittu")

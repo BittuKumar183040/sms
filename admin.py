@@ -1,5 +1,5 @@
 import tkinter as tk
-from dbConnect import adminCheck
+from dbConnect import admin_check
 from window import admin_loginLayout
 import variables as v
 
@@ -21,7 +21,7 @@ def adminLoginPanel():
             message.place(relwidth=0.8, relx=0.5, rely=0.9, anchor=tk.CENTER)
             window.after(2000, lambda: messageHide(message))
         else:
-            valu=adminCheck(user, password)
+            valu=admin_check(user, password)
             if valu:
                 window.destroy()
                 admin_loginLayout(user)

@@ -1,6 +1,6 @@
 import tkinter as tk
 import variables as v
-from dbConnect import customerList,updateCust,deleteRow
+from dbConnect import customer_list,update_cust,delete_row
 
 def customerManage():
     menuWindow=tk.Tk()
@@ -20,7 +20,7 @@ def customerManage():
         menuWindow.destroy()
         customerManage()
     
-    customerData=customerList() # Request the data from dbConnect
+    customerData=customer_list() # Request the data from dbConnect
 
     brief=tk.Frame(bigFrame,background=v.c2)
     brief.grid()
@@ -88,14 +88,14 @@ def customerManage():
         pin.insert(0,c_data[5])
         def setChange():
             updatedList=name.get(),p_no.get(),email.get(),address.get(),pin.get(),c_data[0];
-            updateCust(updatedList)
+            update_cust(updatedList)
             reloadThis()
         tk.Button(changeWindow,text="X",relief="groove",command=changeWindow.destroy,cursor="hand2",width=4,height=1).place(relx=0.85,rely=0.86)
         tk.Button(changeWindow, font=v.fontSimple, bg="#429923",fg="#fff",text="Change",width=15,command=setChange).grid(columnspan=2,pady=(15,0))
 
     def delete_row(id):
         def conformDelete(id_):
-            deleteRow("customer",id_)
+            delete_row("customer",id_)
             reloadThis()
         deleteWindow=tk.LabelFrame(menuWindow,text="Conform Delete !!!",background="#f00")
         deleteWindow.place(relx=0.825,rely=0.8)
@@ -117,5 +117,4 @@ def customerManage():
         customerRowGenerator(x,customerData[x])
 
     menuWindow.wm_attributes('-topmost',tk.TRUE)
-    menuWindow.mainloop();
-# customerManage()
+    menuWindow.mainloop()

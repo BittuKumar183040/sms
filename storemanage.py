@@ -3,7 +3,7 @@ from cgitb import text
 from textwrap import fill
 import tkinter as tk
 import variables as v
-from dbConnect import searchItemsFromTable, shopsList,checkActive,updateShop,deleteShopRow,insertShop,showShopItems,addItemsIntoShop
+from dbConnect import search_items_from_table, shops_list,check_active,update_shop,delete_shop_row,insert_shop,show_shop_items,add_items_into_shop
 
 def storeManage():
     menuWindow=tk.Tk()
@@ -20,8 +20,8 @@ def storeManage():
 
     # brief Area with small boxes
     
-    shopsLists=shopsList() # Request the data from dbConnect (Stores shops Detail)
-    activeUser=checkActive() # stores Open Shops in Mart
+    shopsLists=shops_list() # Request the data from dbConnect (Stores shops Detail)
+    activeUser=check_active() # stores Open Shops in Mart
 
     brief=tk.Frame(bigFrame,background=v.c2)
     brief.grid()
@@ -105,13 +105,13 @@ def storeManage():
 
         def setChange():
             updatedList=name.get(),owner.get(),contact.get(),type.get(),address.get(),status.get(),c_data[1];
-            updateShop(updatedList)
+            update_shop(updatedList)
             reloadThis()
         tk.Button(changeWindow, font=v.fontSimple, bg="#429923",fg="#fff",text="Change",width=15,command=setChange).grid(columnspan=2,pady=(15,5))
 
     def delete_row(id):
         def conformDelete(id_):
-            deleteShopRow("shops",id_)
+            delete_shop_row("shops",id_)
             reloadThis()
         deleteWindow=tk.LabelFrame(menuWindow,text="Conform Delete !!!",background="#f00")
         deleteWindow.place(relx=0.825,rely=0.85)
@@ -121,7 +121,7 @@ def storeManage():
         tk.Button(deleteWindow,text='X',relief="groove",command=deleteWindow.destroy,cursor="hand2",width=2,height=1).place(relx=0.88,rely=0.61)
     def ShopItemsMethod(id):
         def addItemToShop():
-            addItemsIntoShop(id,(item_id.get(),item_name.get(),item_mrp.get()))
+            add_items_into_shop(id,(item_id.get(),item_name.get(),item_mrp.get()))
 
         def checkItems(e):
             def sendRequest():
@@ -129,7 +129,7 @@ def storeManage():
                 if boxData=="" or boxData == " " or len(boxData)>10:
                     pass
                 else:
-                    searchResult=searchItemsFromTable(item_search.get())
+                    searchResult=search_items_from_table(item_search.get())
                     foundFrame=tk.Frame(shopItems,width=10)
                     foundFrame.place(relx=0.5, rely=0.1, anchor=tk.CENTER)
                     itemsFound=tk.Label(foundFrame,text="--------------")
@@ -151,7 +151,7 @@ def storeManage():
         tk.Label(shopItems, font=v.fontSimple,text="Name").grid(row=1,column=1,padx=2,pady=5)
         tk.Label(shopItems, font=v.fontSimple,text="MRP").grid(row=1,column=2,padx=2,pady=5)
         tk.Button(shopItems,text="X",relief="groove",command=shopItems.destroy,cursor="hand2",width=2,height=1).place(relx=0.9,y=-17)
-        data=showShopItems(123)
+        data=show_shop_items(123)
         for x in range(len(data)):
             count=x+2;
             tk.Label(shopItems,text=data[x][0],bg="#fff").grid(row=count,column=0)
@@ -193,10 +193,10 @@ def storeManage():
         addShops.place(relx=0.4,rely=0.5,width=360)
 
         def insertShopRequest():
-            lists=shopsList()
+            lists=shops_list()
             lastId=lists[len(lists)-1][1]
             data=(name.get(),int(lastId)+1,password.get(),owner.get(),phone.get(),type.get(),address.get(),0)
-            insertShop(data)
+            insert_shop(data)
             reloadThis()
 
         tk.Label(addShops, font=v.fontSimple,text="Shop's Name").grid(row=0,column=0,padx=2,pady=5)  #Name
@@ -237,5 +237,4 @@ def storeManage():
     addBtn.place(relx=0.5,rely=0.95)
 
     menuWindow.wm_attributes('-topmost',tk.TRUE)
-    menuWindow.mainloop();
-storeManage()
+    menuWindow.mainloop()

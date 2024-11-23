@@ -35,5 +35,4 @@ def salesManager():
         count=0
         briefFrame(menuName[x][count],menuName[x][count+1],menuName[x][count+2],x)
     menuWindow.wm_attributes('-topmost',tk.TRUE)
-    menuWindow.mainloop();
-# salesManager()
+    menuWindow.mainloop()

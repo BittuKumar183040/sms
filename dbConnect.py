@@ -1,13 +1,22 @@
 import mysql.connector
-from tkinter import messagebox 
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
+host = os.getenv("HOST")
+user = os.getenv("USER")
+password = os.getenv("PASSWORD")
+database = os.getenv("DATABASE")
+
 db=mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="1234",
-        database="sbs"
+        host=host,
+        user=user,
+        password=password,
+        database=database
     )
 
-def adminCheck(aname,apass):
+def admin_check(aname,apass):
+    print("Checking --- ", aname, apass)
     mycursor=db.cursor()
     mycursor.execute("SELECT * FROM admin WHERE name = '%s' and pass='%s';" %(aname,apass))
     
@@ -18,19 +27,19 @@ def adminCheck(aname,apass):
         return True
     except:
         return False
-def shopCheck(aname,apass):
+def shop_check(user_id, apass):
     mycursor=db.cursor()
-    mycursor.execute("SELECT * FROM shops WHERE id = '%s' and password='%s';" %(aname,apass))
+    mycursor.execute("SELECT * FROM shops WHERE id = '%s' and password='%s';" %(user_id,apass))
     
     try:
         mycursor.fetchall()[0][0]
-        mycursor.execute('update shops set status=1 where id="%s" and password="%s";' %(aname,apass))
+        mycursor.execute('update shops set status=1 where id="%s" and password="%s";' %(user_id,apass))
         db.commit()
         return True
     except:
         return False
 
-def customerCheck(id):
+def customer_check(id):
     mycursor=db.cursor()
     try:
         mycursor.execute("SELECT * FROM customer WHERE c_ID='%s'"%id)
@@ -39,27 +48,27 @@ def customerCheck(id):
     except:
         return False
 
-def itemSearch(id,shopName):
+def item_search(id,shop_name):
     mycursor=db.cursor()
     try:
-        mycursor.execute("SELECT * FROM %s WHERE Item_no='%s'"%(shopName,id))
+        mycursor.execute("SELECT * FROM %s WHERE Item_no='%s'"%(shop_name,id))
         return mycursor.fetchall()[0]
     except:
         return False
 
-def adminLogout(aname):
+def admin_logout(aname):
     mycursor=db.cursor()
     mycursor.execute('update admin set status=0 where name="%s";' %aname)
     db.commit()
 
-def countCust(tname):
+def count_cust(tname):
     mycursor=db.cursor()
     try:
         mycursor.execute('select count(*) from %s;' %tname)
         return (mycursor.fetchall()[0][0])
     except:
         return False
-def customerList():
+def customer_list():
     mycursor=db.cursor()
     try:
         mycursor.execute('select * from customer')
@@ -68,16 +77,15 @@ def customerList():
         return False
 
 #Update Data
-def updateCust(new_dataList):
+def update_cust(new_data_list):
     mycursor=db.cursor()
     try:
-        # print(new_dataList)
-        mycursor.execute("UPDATE customer SET Name='%s', contact ='%s',email='%s',Address='%s',pincode='%s' WHERE c_ID='%s';" %(new_dataList))
+        mycursor.execute("UPDATE customer SET Name='%s', contact ='%s',email='%s',Address='%s',pincode='%s' WHERE c_ID='%s';" %(new_data_list))
         db.commit()
         print(mycursor.rowcount, " Row is Affected")
     except:
         print("Data Not Inserted")
-def addCust(c_data):
+def add_cust(c_data):
     mycursor=db.cursor()
     try:
         mycursor.execute("INSERT INTO customer VALUES('%s','%s','%s','%s','%s','%s');"%c_data)
@@ -86,56 +94,56 @@ def addCust(c_data):
     except:
         print("Error: Connection")
 
-def deleteRow(tableName,id):
+def delete_row(table_name,id):
     mycursor=db.cursor()
     try:
-        mycursor.execute("DELETE FROM %s WHERE c_ID='%s';" %(tableName,id))
+        mycursor.execute("DELETE FROM %s WHERE c_ID='%s';" %(table_name,id))
         db.commit()
-        print(mycursor.rowcount, " Row is removed")
+        print(mycursor.rowcount, " Row is removed.")
     except:
-        print("Something Went Wrong!!!")
+        print("Something Went Wrong!")
 
 # Shop Management 
 
-def shopsList():
+def shops_list():
     mycursor=db.cursor()
     mycursor.execute("SELECT * FROM shops;")
     # messagebox.showerror('All Data Loaded')
     return mycursor.fetchall()
 
-def checkActive():
+def check_active():
     mycursor=db.cursor()
     mycursor.execute("SELECT * FROM shops WHERE status=1;")
     return mycursor.fetchall()
 
-def updateShop(new_dataList):
+def update_shop(new_data_list):
     mycursor=db.cursor()
     try:
-        # print(new_dataList)
-        mycursor.execute("UPDATE shops SET name='%s', owner ='%s',phone_no='%s',type='%s',address='%s',status='%s' WHERE id='%s';" %(new_dataList))
+        # print(new_data_list)
+        mycursor.execute("UPDATE shops SET name='%s', owner ='%s',phone_no='%s',type='%s',address='%s',status='%s' WHERE id='%s';" %(new_data_list))
         db.commit()
         print(mycursor.rowcount, " Row is Affected")
     except:
         print("Data Not Inserted")
-def deleteShopRow(tableName,id):
+def delete_shop_row(table_name,id):
     mycursor=db.cursor()
     try:
-        mycursor.execute("DELETE FROM %s WHERE id='%s';" %(tableName,id))
+        mycursor.execute("DELETE FROM %s WHERE id='%s';" %(table_name,id))
         db.commit()
         print(mycursor.rowcount, " Row is removed")
     except:
         print("Something Went Wrong!!!")
-def insertShop(new_dataList):
-    # print("INSERT INTO shops values('%s','%s','%s','%s','%s','%s','%s',%d);"%new_dataList)
+def insert_shop(new_data_list):
+    # print("INSERT INTO shops values('%s','%s','%s','%s','%s','%s','%s',%d);"%new_data_list)
     mycursor=db.cursor()
     try:
-        mycursor.execute("INSERT INTO shops values('%s','%s','%s','%s','%s','%s','%s',%d);"%new_dataList)
+        mycursor.execute("INSERT INTO shops values('%s','%s','%s','%s','%s','%s','%s',%d);"%new_data_list)
         db.commit()
         print(mycursor.rowcount, " Row is removed")
     except:
         print("Something Went Wrong!!!")
 
-def showShopItems(id):
+def show_shop_items(id):
     mycursor=db.cursor()
     try:
         mycursor.execute("SELECT * FROM shop_%s;"%id)
@@ -143,14 +151,13 @@ def showShopItems(id):
     except:
         mycursor.execute("CREATE TABLE IF NOT EXISTS shop_%s(Item_no varchar(20) PRIMARY KEY,Item_name varchar(20),mrp int);"%id);
         return "No Data Found"
-def addItemsIntoShop(id,values):
-    # mycursor=db.cursor()
+def add_items_into_shop(id,values):
     try:
         print("INSERT INTO shop_%s values %s;"%(id,values))
         # mycursor.execute("INSERT INTO shop_%s values %s;"%(id,values))
     except:
         pass;
-def searchItemsFromTable(ref):
+def search_items_from_table(ref):
     mycursor=db.cursor()
     try:
         mycursor.execute("select Item_no FROM shop_123 WHERE Item_no LIKE '%s%%';" %ref)

@@ -1,16 +1,19 @@
-------------- Kiran Shop -------------
+------------- Arin Shop -------------
              ( Food Shop)
-Rakesh Khan         -       7854841252
+Bittu Kumar         -       4332453234
 Add.: Raisen Road, Bhopal - 462023
 --------------------------------------
-Name - Aditya           |    
-ID - 200322010839
-Bill No. - 200322010839
+Name - Bittu Kumar           |    3232343598
+ID - 221124202057
+Bill No. - 221124202057
 --------------------------------------
 Bad		 - 		 215 
+Shampoo		 - 		 15 
+Keyboard		 - 		 650 
+Keyboard		 - 		 650 
 --------------------------------------
- Give Cust. ID to get Add. 2% Dis
+                        Discount - 2 %
 --------------------------------------
-Total		 - 		 215 
+Total		 - 		 1499.4 
 --------------------------------------
 ------ Thanks You For Shopping  ------

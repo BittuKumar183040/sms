@@ -1,5 +1,5 @@
 import tkinter as tk
-from dbConnect import shopCheck
+from dbConnect import shop_check
 from billing import shopBilling
 import variables as v
 
@@ -14,27 +14,27 @@ def userLoginPanel():
     def login():
         messageForeground = "#FE7E6D"
         messagebackground = "#FEECE9"
-        user=entry1.get()
+        user_id=entry1.get()
         password=entry2.get()
-        if user=="":
-            message=tk.Label(user_window,foreground=messageForeground,background=messagebackground,text="Hay! How you forgot to put username")
+        if user_id=="":
+            message=tk.Label(user_window,foreground=messageForeground,background=messagebackground,text="Hay! How you forgot to put User ID")
             message.place(relwidth=0.8, relx=0.5, rely=0.9, anchor=tk.CENTER)
             user_window.after(2000, lambda: messageHide(message))
         else:
-            valu=shopCheck(user, password)
+            valu=shop_check(user_id, password)
             if valu:
                 user_window.destroy()
-                shopBilling(user,password)
+                shopBilling(user_id,password)
             else:
-                message=tk.Label(user_window,foreground=messageForeground,background=messagebackground,text="Wrong Username or Password, %s!" %user)
+                message=tk.Label(user_window,foreground=messageForeground,background=messagebackground,text="Wrong User ID or Password, %s!" %user_id)
                 message.place(relwidth=0.8, relx=0.5, rely=0.9, anchor=tk.CENTER)
                 user_window.after(2000, lambda: messageHide(message))
         
-    # frameTop
+    # Frame Top
     heading_Frame=tk.Frame(user_window).pack(pady=20)
     tk.Label(heading_Frame, text="Welcome to SuperMart", background=v.bgColor, foreground=v.c1, font=v.fontHeading).pack()
 
-    # frame Middle
+    # Frame Middle
     mid_Frame=tk.Frame(user_window).pack(pady=0)
     tk.Label(mid_Frame,text="B I L L I N G  S Y S T E M\n\nL O G I N", width=80, height=3, font=v.fontSimple, background=v.c6, foreground="#AEFEFF").pack(pady=(10,30))
 
@@ -47,10 +47,10 @@ def userLoginPanel():
     entry1=tk.Entry(userBox, width=35, borderwidth=0)
     entry1.grid(row=0,column=1,pady=(20,2),padx=5)
     entry1.config({"background":v.defaultEntryColor})
-    uName1=tk.Label(userBox,text="Username ",cursor="xterm",font=v.fontLittle, background=v.defaultEntryColor, foreground=v.c4)
+    uName1=tk.Label(userBox,text="User ID ",cursor="xterm",font=v.fontLittle, background=v.defaultEntryColor, foreground=v.c4)
     uName1.place(x=0.5,y=0)
 
-    # Input box password
+    # Input Box Password
     passBox=tk.Frame(mid_Frame)
     passBox.pack(pady=15)
     entry2=tk.Entry(passBox, width=35, borderwidth=0)
