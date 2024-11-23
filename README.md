@@ -31,8 +31,8 @@ python main.py
 <img src="./screenshots/SuperMart Management System.jpg">
 
 ##### Database Structure:
-
-<img src="./screenshots/database Diagram.svg">
+> #
+> <img src="./screenshots/database Diagram.svg">
 
 
 ---
