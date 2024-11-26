@@ -32,7 +32,7 @@ python main.py
 
 ##### Database Structure:
 > #
-> <img src="./screenshots/database Diagram.svg">
+> <img src="./screenshots/database Diagram.jpg">
 
 
 ---
